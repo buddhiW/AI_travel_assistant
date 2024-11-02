@@ -1,0 +1,7 @@
+# Environment
+.env
+.venv/
+
+# test files
+.ipynb
+check_stuff.py
