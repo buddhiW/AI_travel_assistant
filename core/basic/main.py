@@ -22,15 +22,40 @@ from utils import execute_tool_call, function_to_schema
 def compute_travel_duration(origin, destination, mode_of_travel):
     """
     Function to compute travel duration given origin, destination and mode of travel.
+    The output of this function is a string, that is used by the LLM to produce the response.
     """
-    ## Time is hard-coded. In reality, this would be an API call.
-    #print(f'Time to travel from  {origin} to {destination} by {mode_of_travel} is 1 hour.')
-    output = f'Time to travel from  {origin} to {destination} by {mode_of_travel} is 1 hour.'
-    return output
 
-# Creat tools (functions) for each case and let the model decide which function to call.
-#     Make the system prompt more detailed with steps -> ask what to do in each case within the steps.
+    if USE_API == True:
+        url = "https://maps.googleapis.com/maps/api/distancematrix/json"
+        params = {
+            "origins": origin,
+            "destinations": destination,
+            "mode": mode_of_travel,
+            "key": map_api_key
+        }
 
+        errors = ''
+
+        # Google Maps API call
+        response = requests.get(url, params=params).json()
+        
+        origin_address = response['origin_addresses'][0]
+        destination_address = response['destination_addresses'][0]
+
+        if response['status'] == 'OK' and response['rows'][0]['elements'][0]['status'] == 'OK':
+            duration = response['rows'][0]['elements'][0]['duration']['text']
+            output = f'Time to travel from  {origin_address} to {destination_address} by {mode_of_travel} is {duration}.'
+            return output
+        elif not destination_address:
+            errors + 'not enough information to determine destination address '
+        elif not origin_address:
+            errors + ' not enough information to determine origin address'
+
+        return errors
+    else:
+        ## Time is hard-coded. In reality, this would be an API call.
+        output = f'Time to travel from  {origin} to {destination} by {mode_of_travel} is 1 hour.'
+        return output
 
 
 def run_assistant(system_message, messages, tools):
@@ -89,6 +114,9 @@ def run_assistant(system_message, messages, tools):
 load_dotenv()
 
 client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
+map_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
+
+USE_API = False
 
 system_message = (
     "You are a helpful assistant that processes user queries related to travel duration computation."
