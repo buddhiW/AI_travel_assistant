@@ -135,9 +135,8 @@ system_message = (
     "3. If the question is about travel duration, extract origin, destination and mode of transportation from the query . \n"
     "4. If any of the information is missing, ask the user to provide the missing information. \n"
     "5. Call the travel duration computation function. \n"
-    "6. If the question is about traffic condition, call the traffic condition function with mode of travel as ground. \n"
+    "6. If the question is about traffic condition, provide traffic condition with mode of travel as ground. \n"
     "7. For any other question, make up an answer. \n"
-    "8. If done, conclude the conversation."
 )
 
 tools = [compute_travel_duration, traffic_condition]
