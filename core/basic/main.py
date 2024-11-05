@@ -57,6 +57,12 @@ def compute_travel_duration(origin, destination, mode_of_travel):
         output = f'Time to travel from  {origin} to {destination} by {mode_of_travel} is 1 hour.'
         return output
 
+def traffic_condition(origin, destination, mode_of_travel):
+    """
+    This function takes the origin and destination as arguments returns traffic conditions for ground travel
+    """
+
+    return f'There is heavey traffic between {origin} and {destination}, which could add 20 minutes to the journey by {mode_of_travel}'
 
 def run_assistant(system_message, messages, tools):
 
@@ -119,17 +125,22 @@ map_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
 USE_API = False
 
 system_message = (
-    "You are a helpful assistant that processes user queries related to travel duration computation."
+    "You are a helpful assistant that processes user queries related to travel information."
     "Answer in one sentence."
     "Follow the following routine when answering."
-    "1. First, check whether the query is relevant. If not, politely ask the user to ask a relevant question. \n"
-    "2. Extract origin, destination and mode of transportation from the query. \n"
-    "3. If any of the information is missing, ask the user to provide the missing information. \n"
-    "4. Call the travel duration computation function. \n"
-    "5. If done, conclude the conversation."
+    "1. First, check whether the query is relevant. " 
+        "Relevant questions include estimated travel duration, traffic conditions, important landmarks, places to eat. "
+        "If not relevant, politely ask the user to ask a relevant question. Use two short sentences at most. \n"
+    "2. Identify the type of question. \n"
+    "3. If the question is about travel duration, extract origin, destination and mode of transportation from the query . \n"
+    "4. If any of the information is missing, ask the user to provide the missing information. \n"
+    "5. Call the travel duration computation function. \n"
+    "6. If the question is about traffic condition, call the traffic condition function with mode of travel as ground. \n"
+    "7. For any other question, make up an answer. \n"
+    "8. If done, conclude the conversation."
 )
 
-tools = [compute_travel_duration]
+tools = [compute_travel_duration, traffic_condition]
 
 messages = []
 
