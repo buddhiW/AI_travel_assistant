@@ -81,9 +81,11 @@ def transfer_back_to_triage_agent():
 
 triage_Agent = Agent(
     name = "triage agent",
-    instructions = "Your are a helpful agent that processes queries about travel information."
+    instructions = #"Your are a helpful agent that processes queries about information related to travelling. "
+                    "You are a helpful agent that helps users plan trips and travels by providing useful information. "
                     "Introduce yourself very briefly. "
                     "Gather information to direct the user to the correct department. "
+                    "Allow questions that are tangential, as long as they fulfill the goal of providing information related to travel."
                     "If the query is not relevant, politely ask the user to ask relevant questions. ",
     tools = [transfer_to_travel_duration_agent, transfer_to_traffic_updates_agent, transfer_to_transit_schedule_agent, transfer_to_other_queries_agent]
 )
@@ -104,18 +106,18 @@ traffic_updates_agent = Agent(
 
 transit_schedule_agent = Agent(
     name = "transit schedule agent",
-    instructions = "You are an agent that provides schedule of a transite route given origin, destination and mode of travel. "
+    instructions = "You are an agent that provides schedule of a transit (bus, train, tram) route given origin, destination. "
                     "If the mode of travel is not transit, that is bus, train, tram, ask the user to input a valid mode of travel. "
                     "If the question is not relevant, pass back to triage. ",
-    tools = [find_route, find_transit_schedule, transfer_back_to_triage_agent],
+    tools = [find_route, find_transit_schedule, transfer_to_travel_duration_agent, transfer_back_to_triage_agent],
 )
 
 other_queries_agent = Agent(
     name = "other queries agent",
-    instructions = "You are an agent that answer travel related questions. "
+    instructions = "You are an agent that answers travel related questions. "
                     "Always answer in two sentences at most. "
-                    "If the question is not relevant, ask the user to ask relevant questions. "
                     "Make up an informative answer. "
-                    "Be open to follow-up questions. ",
+                    "Be open to follow-up questions. "
+                    "If the question is not relevant, ask the user to ask relevant questions or pass back to triage. ",
     tools = [transfer_back_to_triage_agent],
 )
