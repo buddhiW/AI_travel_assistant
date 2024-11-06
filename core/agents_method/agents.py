@@ -49,24 +49,73 @@ def find_transit_schedule(route_number, mode_of_travel):
     output = f'{route_number} {mode_of_travel} leaves at 10.30AM. Next one is scheduled at 11.30 AM.'
     return output
 
-# triage_Agent = Agent(
+def transfer_to_travel_duration_agent():
+    """
+    Agent for computing travel duration
+    """
+    return travel_duration_agent
 
-# )
+def transfer_to_traffic_updates_agent():
+    """
+    Agent for providing traffic condition updates for given routes
+    """
+    return traffic_updates_agent
+
+def transfer_to_transit_schedule_agent():
+    """
+    Agent for computing transit schedule
+    """
+    return transit_schedule_agent
+
+def transfer_to_other_queries_agent():
+    """
+    Agent for all other related queries
+    """
+    return other_queries_agent
+
+def transfer_back_to_triage_agent():
+    """
+    Return back to triage agent
+    """
+    return triage_Agent
+
+triage_Agent = Agent(
+    name = "triage agent",
+    instructions = "Your are a helpful agent that processes queries about travel information."
+                    "Introduce yourself very briefly. "
+                    "Gather information to direct the user to the correct department. "
+                    "If the query is not relevant, politely ask the user to ask relevant questions. ",
+    tools = [transfer_to_travel_duration_agent, transfer_to_traffic_updates_agent, transfer_to_transit_schedule_agent, transfer_to_other_queries_agent]
+)
 
 travel_duration_agent = Agent(
     name = "travel duration agent",
-    instructions= "Your are a agent that computes travel duration using origin, destination and travel mode.",
-    tools= [compute_travel_duration],
+    instructions= "Your are an agent that computes travel duration using origin, destination and travel mode. "
+                    "If the question is not relevant, pass back to triage. ",
+    tools= [compute_travel_duration, transfer_back_to_triage_agent],
 )
 
-traffic_condition_agent = Agent(
+traffic_updates_agent = Agent(
     name = "traffic condition agent",
-    instructions = "You are an agent that provides real-time traffic updates for a route.",
-    tools = [traffic_condition],
+    instructions = "You are an agent that provides real-time traffic updates for a route. "
+                    "If the question is not relevant, pass back to triage. ",
+    tools = [traffic_condition, transfer_back_to_triage_agent],
 )
 
 transit_schedule_agent = Agent(
     name = "transit schedule agent",
-    instructions = "You are an agent that provides schedule of a transite route.",
-    tools = [find_route, find_transit_schedule],
+    instructions = "You are an agent that provides schedule of a transite route given origin, destination and mode of travel. "
+                    "If the mode of travel is not transit, that is bus, train, tram, ask the user to input a valid mode of travel. "
+                    "If the question is not relevant, pass back to triage. ",
+    tools = [find_route, find_transit_schedule, transfer_back_to_triage_agent],
+)
+
+other_queries_agent = Agent(
+    name = "other queries agent",
+    instructions = "You are an agent that answer travel related questions. "
+                    "Always answer in two sentences at most. "
+                    "If the question is not relevant, ask the user to ask relevant questions. "
+                    "Make up an informative answer. "
+                    "Be open to follow-up questions. ",
+    tools = [transfer_back_to_triage_agent],
 )
