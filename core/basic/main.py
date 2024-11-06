@@ -1,7 +1,7 @@
 """
 Author: Buddhi W
 Date: 07/25/2024
-Functions related to AI assistant that computes current travel distance between two locations for a given mode of travel.
+AI assistant that answers questions related to travel information including travel duration and traffic conditions.
 This implementation is based on https://cookbook.openai.com/examples/orchestrating_agents?utm_source=www.therundown.ai&utm_medium=newsletter&utm_campaign=anthropic-ceo-predicts-ai-utopia&_bhlid=db30852b7747db2f62cd8fde276efcf151c6c21a
 """
 
@@ -61,7 +61,6 @@ def traffic_condition(origin, destination, mode_of_travel):
     """
     This function takes the origin and destination as arguments returns traffic conditions for ground travel
     """
-
     return f'There is heavey traffic between {origin} and {destination}, which could add 20 minutes to the journey by {mode_of_travel}'
 
 def run_assistant(system_message, messages, tools):
