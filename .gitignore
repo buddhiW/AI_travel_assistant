@@ -5,3 +5,7 @@
 # test files
 .ipynb
 check_stuff.py
+langgraph_tutorial.py
+
+# Figures
+.png
