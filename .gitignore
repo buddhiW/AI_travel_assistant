@@ -3,9 +3,9 @@
 .venv/
 
 # test files
-.ipynb
+*.ipynb
 check_stuff.py
 langgraph_tutorial.py
 
 # Figures
-.png
+*.png
