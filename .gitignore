@@ -9,3 +9,6 @@ langgraph_tutorial.py
 
 # Figures
 *.png
+
+# Compiled Python files
+*.pyc
