@@ -2,7 +2,7 @@
 Author: Buddhi W
 Date: 11/5/2024
 AI assistant that answers questions related to travel information including travel duration and traffic conditions.
-This implementation uses OpenAI API.
+This implementation is purely based on OpenAI API, without other libraries such as LangChain and LangGraph.
 Based on https://cookbook.openai.com/examples/orchestrating_agents?utm_source=www.therundown.ai&utm_medium=newsletter&utm_campaign=anthropic-ceo-predicts-ai-utopia&_bhlid=db30852b7747db2f62cd8fde276efcf151c6c21a
 """
 
