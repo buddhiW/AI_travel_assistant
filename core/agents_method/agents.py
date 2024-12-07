@@ -46,7 +46,7 @@ def find_transit_schedule(route_number, mode_of_travel):
     This function returns the schedule for the route number.
     """
     print("Looking up transit schedules.")
-    output = f'{route_number} {mode_of_travel} leaves at 10.30AM. Next one is scheduled at 11.30 AM.'
+    output = f'The next {route_number} {mode_of_travel} leaves at 10.30AM. Next one is scheduled at 11.30 AM.'
     return output
 
 def transfer_to_travel_duration_agent():
@@ -94,7 +94,7 @@ travel_duration_agent = Agent(
     name = "travel duration agent",
     instructions= "Your are an agent that computes travel duration using origin, destination and travel mode. "
                     "If the question is not relevant, pass back to triage. ",
-    tools= [compute_travel_duration, transfer_back_to_triage_agent],
+    tools= [compute_travel_duration],
 )
 
 traffic_updates_agent = Agent(

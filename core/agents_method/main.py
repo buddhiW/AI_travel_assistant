@@ -17,6 +17,7 @@ from typing import Optional
 from utils import execute_tool_call, function_to_schema
 from agents import *
 
+
 class Response(BaseModel):
     agent: Optional[Agent]
     messages: list
@@ -27,10 +28,11 @@ def run_assistant(agent, messages):
     Run the AI assistant pipeline.
 
     Parameters:
-    user_query (str): Input obtained through web UI.
+    agent (Agent): The current agent that controls the application.
+    messages (list): Input obtained through stdin.
 
     Returns:
-    str: Output displayed on the web UI.
+    str: Output displayed on stdout.
     """
     
     current_agent = agent
@@ -45,7 +47,7 @@ def run_assistant(agent, messages):
 
         ## Get chat completion
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model= current_agent.model,
             messages=[{"role": "system", "content": current_agent.instructions}] + messages,
             tools= tool_schemas or None,
         )
@@ -82,6 +84,9 @@ def run_assistant(agent, messages):
 
 
 load_dotenv()
+
+## If you want LangSmith to trace your runs, set this environmental variable
+#os.environ["LANGCHAIN_TRACING_V2"] = "true"
 
 client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
 map_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
