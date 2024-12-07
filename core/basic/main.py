@@ -18,50 +18,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 from utils import execute_tool_call, function_to_schema
-
-def compute_travel_duration(origin, destination, mode_of_travel):
-    """
-    Function to compute travel duration given origin, destination and mode of travel.
-    The output of this function is a string, that is used by the LLM to produce the response.
-    """
-
-    if USE_API == True:
-        url = "https://maps.googleapis.com/maps/api/distancematrix/json"
-        params = {
-            "origins": origin,
-            "destinations": destination,
-            "mode": mode_of_travel,
-            "key": map_api_key
-        }
-
-        errors = ''
-
-        # Google Maps API call
-        response = requests.get(url, params=params).json()
-        
-        origin_address = response['origin_addresses'][0]
-        destination_address = response['destination_addresses'][0]
-
-        if response['status'] == 'OK' and response['rows'][0]['elements'][0]['status'] == 'OK':
-            duration = response['rows'][0]['elements'][0]['duration']['text']
-            output = f'Time to travel from  {origin_address} to {destination_address} by {mode_of_travel} is {duration}.'
-            return output
-        elif not destination_address:
-            errors + 'not enough information to determine destination address '
-        elif not origin_address:
-            errors + ' not enough information to determine origin address'
-
-        return errors
-    else:
-        ## Time is hard-coded. In reality, this would be an API call.
-        output = f'Time to travel from  {origin} to {destination} by {mode_of_travel} is 1 hour.'
-        return output
-
-def traffic_condition(origin, destination, mode_of_travel):
-    """
-    This function takes the origin and destination as arguments returns traffic conditions for ground travel
-    """
-    return f'There is heavey traffic between {origin} and {destination}, which could add 20 minutes to the journey by {mode_of_travel}'
+from tools import *
 
 def run_assistant(system_message, messages, tools):
 
@@ -119,7 +76,6 @@ def run_assistant(system_message, messages, tools):
 load_dotenv()
 
 client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
-map_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
 
 USE_API = False
 
@@ -128,17 +84,27 @@ system_message = (
     "Answer in one sentence."
     "Follow the following routine when answering."
     "1. First, check whether the query is relevant. " 
-        "Relevant questions include estimated travel duration, traffic conditions, important landmarks, places to eat. "
+        "Relevant questions include estimated travel duration, traffic conditions, transit route information, transit route schedules, important landmarks, places to eat. "
         "If not relevant, politely ask the user to ask a relevant question. Use two short sentences at most. \n"
     "2. Identify the type of question. \n"
-    "3. If the question is about travel duration, extract origin, destination and mode of transportation from the query . \n"
-    "4. If any of the information is missing, ask the user to provide the missing information. \n"
-    "5. Call the travel duration computation function. \n"
-    "6. If the question is about traffic condition, provide traffic condition with mode of travel as ground. \n"
-    "7. For any other question, make up an answer. \n"
+    "3. For questions related to travel duration, traffic conditions, transit route information, transit route schedules, call the relevant function. \n"
+    "4. If any of the information for the function call is missing, ask the user to provide the missing information. \n"
+    "5. For any other questions, make up an answer. \n"
 )
 
-tools = [compute_travel_duration, traffic_condition]
+questions = [
+    "How much time will it take me to go from Sunnyvale to Mountain View by car?",
+    "How is the traffic situation on this route?",
+    "How long will it make for me to cycle to Golden Gate Bridge?",
+    "What is the travel time between Eureka, Mountain View and Caltrain Station, Mountain View?",
+    "Which bus route should I take for this trip?",
+    "I changed my mind. What is the best train route?",
+    "Can you give me the train schedule for this route?",
+    "Can you recommend a good place to dine in San Francisco?",
+    "How much time will it take to drive from there to Golden Gate Park?",
+]
+
+tools = [compute_travel_duration, traffic_condition, find_route, find_transit_schedule]
 
 messages = []
 
