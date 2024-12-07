@@ -6,9 +6,14 @@
 *.ipynb
 check_stuff.py
 langgraph_tutorial.py
+assistant_utils_chains.py
+evaluation.py
 
 # Figures
 *.png
 
 # Compiled Python files
 *.pyc
+
+# Text files
+questions.txt
