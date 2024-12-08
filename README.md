@@ -1,4 +1,4 @@
-# Same application in three ways: An AI travel assistant
+# An AI travel assistant: Same application in three ways
 
 This project serves as an investigation of multiple methodologies for implementing an AI assistant. This assistant provides useful answers to travel-related queries.
 
