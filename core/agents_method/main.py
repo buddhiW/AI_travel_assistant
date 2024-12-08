@@ -91,26 +91,17 @@ load_dotenv()
 client = OpenAI(api_key = os.getenv("OPENAI_API_KEY"))
 map_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
 
-
-# messages = []
-# user_query = "How much time will it take for me to go to Kandy by bus?"
-# print("User: ", user_query)
-# messages.append({"role": "user", "content": user_query})
-
-# response = run_assistant(travel_duration_agent, messages)
-# messages.extend(response)
-
-# user_query = "How is the traffic situation on this route?"
-# print("User: ", user_query)
-# messages.append({"role": "user", "content": user_query})
-
-# response = run_assistant(traffic_condition_agent, messages)
-# messages.extend(response)
-
-# user_query = "Can you find me the bus schedule for this route?"
-# print("User: ", user_query)
-# messages.append({"role": "user", "content": user_query})
-# response = run_assistant(transit_schedule_agent, messages)
+questions = [
+    "How much time will it take me to go from Sunnyvale to Mountain View by car?",
+    "How is the traffic situation on this route?",
+    "How long will it make for me to cycle to Golden Gate Bridge?",
+    "What is the travel time between Eureka, Mountain View and Caltrain Station, Mountain View?",
+    "Which bus route should I take for this trip?",
+    "I changed my mind. What is the best train route?",
+    "Can you give me the train schedule for this route?",
+    "Can you recommend a good place to dine in San Francisco?",
+    "How much time will it take to drive from there to Golden Gate Park?",
+]
 
 messages = []
 agent = triage_Agent
