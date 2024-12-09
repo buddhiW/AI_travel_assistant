@@ -1,4 +1,4 @@
-# Same application in three ways: An AI travel assistant
+# An AI travel assistant: Same application in three ways
 
 This project serves as an investigation of multiple methodologies for implementing an AI assistant. This assistant provides useful answers to travel-related queries.
 
@@ -58,13 +58,13 @@ This project is designed as a starting point, providing a learning experience fo
 
 ## Usage
 
-    Navigate to the folder corresponding to each approach within the `core` folder and execute main.py
+Navigate to the folder corresponding to each approach within the `core` folder and execute main.py
 
     ```bash
     python main.py
     ```  
 
-    `questions` list in main.py is a sample list of questions you can use to test the applications.
+`questions` list in main.py is a sample list of questions you can use to test the applications.
 
  
 
