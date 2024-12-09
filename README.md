@@ -7,8 +7,8 @@ Getting started with large language modelling and generative AI can be overwhelm
 This project is designed as a starting point, providing a learning experience for beginners in the field. Here, the same application has been implemented using three approaches.
 
 ## Implementation approaches
-1. **Basic**: Uses [chat completions](https://platform.openai.com/docs/guides/text-generation) API from OpenAI and tool calling.
-2. **Agents method**: An multi-agent framework based on chat completions API and tool calling.
+1. **Basic**: A non-agentic framework that uses [chat completions](https://platform.openai.com/docs/guides/text-generation) API from OpenAI and tool calling.
+2. **Agent method**: An multi-agent framework based on chat completions API and tool calling.
 3. **LangGraph single-agent**: A single-agent graph framework with tool calling implemented using [LangChain](https://python.langchain.com/docs/introduction/) and [LangGraph](https://langchain-ai.github.io/langgraph/).
 4. **LangGraph multi-agent**: INCOMPLETE. A supervisor-worker graph framework.
 
@@ -67,3 +67,10 @@ This project is designed as a starting point, providing a learning experience fo
     `questions` list in main.py is a sample list of questions you can use to test the applications.
 
  
+
+## References
+1. [Tool calling and multi-agent framework with Chat Completions API](https://cookbook.openai.com/examples/orchestrating_agents?utm_source=www.therundown.ai&utm_medium=newsletter&utm_campaign=anthropic-ceo-predicts-ai-utopia&_bhlid=db30852b7747db2f62cd8fde276efcf151c6c21a)
+2. [LangGraph introductory tutorial](https://langchain-ai.github.io/langgraph/tutorials/introduction/)
+3. [Message history with LangGraph](https://python.langchain.com/docs/how_to/message_history/)
+4. [Multi-agent supervisor using LangGraph](https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/multi_agent/agent_supervisor.ipynb)
+5. [Customer support bot using LangGraph](https://langchain-ai.github.io/langgraph/tutorials/customer-support/customer-support/)
