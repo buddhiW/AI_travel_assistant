@@ -20,14 +20,17 @@ This project is designed as a starting point, providing a learning experience fo
 5. Other travel-related queries (the assistant decides which queries are relevant).
 
 ## Requirements
-- python 3.7+
-- openai
-- langchain
-- langgraph
-- pydantic
-- requests (if calling Google maps API)
-- langsmith (for evaluation)
-- python-dotenv (for environment variable management)
+
+- python==3.7+
+- langchain==0.3.9
+- langchain-core==0.3.21
+- langchain-openai==0.2.8
+- langgraph==0.2.53
+- openai==1.54.4
+- pydantic==2.9.2
+- langsmith==0.1.147 (for evaluation)
+- python-dotenv==1.0.1 (for environment variable management)
+- requests==2.32.3 (for calling Google maps API)
 
 ## Installation
 
