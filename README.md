@@ -7,9 +7,9 @@ Getting started with large language modelling and generative AI can be overwhelm
 This project is designed as a starting point, providing a learning experience for beginners in the field. Here, the same application has been implemented using three approaches.
 
 ## Implementation approaches
-1. **Basic prompt-driven**: A non-agentic framework that uses [chat completions](https://platform.openai.com/docs/guides/text-generation) API from OpenAI and tool calling.
-2. **Multi-agent**: An multi-agent framework based on chat completions API and tool calling.
-3. **LangGraph single-agent**: A single-agent graph framework with tool calling implemented using [LangChain](https://python.langchain.com/docs/introduction/) and [LangGraph](https://langchain-ai.github.io/langgraph/).
+1. **Basic prompt-driven** (`core/basic`): A non-agentic framework that uses [chat completions](https://platform.openai.com/docs/guides/text-generation) API from OpenAI and tool calling.
+2. **Multi-agent** (`core/agents_method`): An multi-agent framework based on chat completions API and tool calling.
+3. **LangGraph single-agent** (`core/langGraph_single_agent`): A single-agent graph framework with tool calling implemented using [LangChain](https://python.langchain.com/docs/introduction/) and [LangGraph](https://langchain-ai.github.io/langgraph/).
 4. **LangGraph multi-agent**: INCOMPLETE. A supervisor-worker graph framework.
 
 ## Queries handled by the assistant
