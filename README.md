@@ -89,11 +89,11 @@ Navigate to the folder corresponding to each approach within the `core` folder a
 
 This project incorporates code snippets and ideas from the following sources:
 
-1. [Tool calling and multi-agent framework with Chat Completions API](https://cookbook.openai.com/examples/orchestrating_agents?utm_source=www.therundown.ai&utm_medium=newsletter&utm_campaign=anthropic-ceo-predicts-ai-utopia&_bhlid=db30852b7747db2f62cd8fde276efcf151c6c21a)
-2. [LangGraph introductory tutorial](https://langchain-ai.github.io/langgraph/tutorials/introduction/)
-3. [Message history with LangGraph](https://python.langchain.com/docs/how_to/message_history/)
-4. [Multi-agent supervisor using LangGraph](https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/multi_agent/agent_supervisor.ipynb)
-5. [Customer support bot using LangGraph](https://langchain-ai.github.io/langgraph/tutorials/customer-support/customer-support/)
+1. [Tool calling and multi-agent framework with Chat Completions API](https://cookbook.openai.com/examples/orchestrating_agents?utm_source=www.therundown.ai&utm_medium=newsletter&utm_campaign=anthropic-ceo-predicts-ai-utopia&_bhlid=db30852b7747db2f62cd8fde276efcf151c6c21a) - Licensed under MIT.
+2. [LangGraph introductory tutorial](https://langchain-ai.github.io/langgraph/tutorials/introduction/) - Licensed under MIT.
+3. [Message history with LangGraph](https://python.langchain.com/docs/how_to/message_history/) - Lincensed under MIT.
+4. [Multi-agent supervisor using LangGraph](https://github.com/langchain-ai/langgraph/blob/main/docs/docs/tutorials/multi_agent/agent_supervisor.ipynb) - Licensed under MIT.
+5. [Customer support bot using LangGraph](https://langchain-ai.github.io/langgraph/tutorials/customer-support/customer-support/) - Licensed under MIT.
 
 I acknowledge and thank the authors of these resources for their contributions to the open-source community.
 
