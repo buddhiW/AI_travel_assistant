@@ -7,8 +7,8 @@ Getting started with large language modelling and generative AI can be overwhelm
 This project is designed as a starting point, providing a learning experience for beginners in the field. Here, the same application has been implemented using three approaches.
 
 ## Implementation approaches
-1. **Basic**: A non-agentic framework that uses [chat completions](https://platform.openai.com/docs/guides/text-generation) API from OpenAI and tool calling.
-2. **Agent method**: An multi-agent framework based on chat completions API and tool calling.
+1. **Basic prompt-driven**: A non-agentic framework that uses [chat completions](https://platform.openai.com/docs/guides/text-generation) API from OpenAI and tool calling.
+2. **Multi-agent**: An multi-agent framework based on chat completions API and tool calling.
 3. **LangGraph single-agent**: A single-agent graph framework with tool calling implemented using [LangChain](https://python.langchain.com/docs/introduction/) and [LangGraph](https://langchain-ai.github.io/langgraph/).
 4. **LangGraph multi-agent**: INCOMPLETE. A supervisor-worker graph framework.
 
@@ -68,12 +68,12 @@ Navigate to the folder corresponding to each approach within the `core` folder a
 
 ## Approach comparison - summary
 
-### Basic method (non-agentic)
+### Basic prompt-driven
 - This approach involves the fewest moving components, making it simple and straightforward. 
 - It is well-suited for tasks with a limited number of subtasks or functions. However, as the number of subtasks grows, the prompt construction can become complicated and potentially lead to degraded performance.
 - Conversation history is maintained by appending all messages to the `messages` parameter in the `chat.completions.create` API call. This can lead to inefficiencies as the conversation length increases.
   
-### Agent method (multi-agent)
+### Multi-agent
 - In this approach, each subtask is handled by a dedicated agent with its own specific instructions, resulting in a cleaner and more modular design.
 - A central agent, referred to as the `triage_agent`, orchestrates the workflow by delegating the subtasks to corresponding agents.
 - This enhances scalability and flexibility, as agents can recursively delegate subtasks to other agents.
