@@ -66,7 +66,24 @@ Navigate to the folder corresponding to each approach within the `core` folder a
 
 `questions` list in main.py is a sample list of questions you can use to test the applications.
 
- 
+## Approach comparison - summary
+
+# Basic method (non-agentic)
+- This approach involves the fewest moving components, making it simple and straightforward. 
+- It is well-suited for tasks with a limited number of subtasks or functions. However, as the number of subtasks grows, the prompt construction can become complicated and potentially lead to degraded performance.
+- Conversation history is maintained by appending all messages to the `messages` parameter in the `chat.completions.create` API call. This can lead to inefficiencies as the conversation length increases.
+  
+# Agent method (multi-agent)
+- In this approach, each subtask is handled by a dedicated agent with its own specific instructions, resulting in a cleaner and more modular design.
+- A central agent, referred to as the `triage_agent`, orchestrates the workflow by delegating the subtasks to corresponding agents.
+- This enhances scalability and flexibility, as agents can recursively delegate subtasks to other agents.
+- However, certain tasks such as tool execution are still handled manually, as seen in the `run_assistant` function.
+
+# LangGraph single-agent
+- This approach reimagines the application as a graph, leveraging the modularity and abstraction provided by LangGraph.
+- Many routines previously implemented manually are now streamlined using LangChain’s built-in interfaces, resulting in a more maintainable implementation. This is evidenced by the updated `run_assistant` function.
+- LangGraph’s `MemorySaver` checkpointing mechanism provides efficient memory management. This leads to better recall capabilities, improved token efficiency and overall smoother operation.
+
 
 ## References
 1. [Tool calling and multi-agent framework with Chat Completions API](https://cookbook.openai.com/examples/orchestrating_agents?utm_source=www.therundown.ai&utm_medium=newsletter&utm_campaign=anthropic-ceo-predicts-ai-utopia&_bhlid=db30852b7747db2f62cd8fde276efcf151c6c21a)
