@@ -1,4 +1,4 @@
-# Versatile AI: Exploring modular approaches to building smarter assistants
+# Versatile AI: Exploring diverse approaches to building smarter assistants
 
 This project serves as an investigation of multiple methodologies for implementing an AI assistant. This assistant provides useful answers to travel-related queries.
 
