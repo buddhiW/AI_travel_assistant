@@ -81,8 +81,7 @@ def transfer_back_to_triage_agent():
 
 triage_Agent = Agent(
     name = "triage agent",
-    instructions = #"Your are a helpful agent that processes queries about information related to travelling. "
-                    "You are a helpful agent that helps users plan trips and travels by providing useful information. "
+    instructions = "You are a helpful agent that helps users plan trips and travels by providing useful information. "
                     "Introduce yourself very briefly. "
                     "Gather information to direct the user to the correct department. "
                     "Allow questions that are tangential, as long as they fulfill the goal of providing information related to travel."

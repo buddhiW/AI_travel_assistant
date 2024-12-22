@@ -22,6 +22,7 @@ def find_route(origin, destination, mode_of_travel):
     """
     This function takes origin, destination, mode of travel and returns the transit route number. 
     """
+    ## Route number is hard-coded.
     route_number = "425"
     print(f'Found {mode_of_travel} route from {origin} to {destination}: {route_number}')
     return route_number
