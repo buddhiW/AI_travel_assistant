@@ -63,9 +63,9 @@ This project is designed as a starting point, providing a learning experience fo
 
 Navigate to the folder corresponding to each approach within the `core` folder and execute main.py.
 
-    ```
-    python main.py
-    ``` 
+```bash
+python main.py
+```
 
 `questions` list in main.py is a sample list of questions you can use to test the applications.
 
