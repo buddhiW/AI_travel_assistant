@@ -61,8 +61,9 @@ This project is designed as a starting point, providing a learning experience fo
 
 ## Usage
 
-Navigate to the folder corresponding to each approach within the `core` folder and execute main.py
-    ```bash
+Navigate to the folder corresponding to each approach within the `core` folder and execute main.py.
+
+    ```
     python main.py
     ``` 
 
