@@ -1,4 +1,34 @@
-from typing import Annotated, Literal
+"""
+This file includes codes adapted from https://langchain-ai.github.io/langgraph/tutorials/customer-support/customer-support/
+
+MIT License
+
+Copyright (c) 2024 LangChain, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Author: Buddhi W
+Date: 12/27/2024
+Implementations of agents and related functions.
+
+"""
+from typing import Annotated, Literal, Callable
 from typing_extensions import TypedDict
 
 from langgraph.graph.message import AnyMessage, add_messages
@@ -6,7 +36,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import Runnable, RunnableConfig
 from langchain_core.tools import tool
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, ToolMessage
 
 from pydantic import BaseModel
 
@@ -64,10 +94,12 @@ class Assistant:
             else:
                 break
 
-        return {"messages": [
-            HumanMessage(content=result["messages"][-1].content)
-        ]
-        }
+        # return {"messages": [
+        #     HumanMessage(content=result["messages"][-1].content)
+        # ]
+        # }
+        return {"messages": result}
+
 
 def create_agent_runnable(agent:Agent, structured:bool = False):
 
@@ -90,8 +122,27 @@ def create_agent_runnable(agent:Agent, structured:bool = False):
 
     return assistant_runnable
 
+def create_entry_node(assistant_name: str, new_dialog_state: str) -> Callable:
+    def entry_node(state: State) -> dict:
+        tool_call_id = state["messages"][-1].tool_calls[0]["id"]
+        return {
+            "messages": [
+                ToolMessage(
+                    content=f"The assistant is now the {assistant_name}. Reflect on the above conversation between the host assistant and the user."
+                    f" The user's intent is unsatisfied. Use the provided tools to assist the user. Remember, you are {assistant_name},"
+                    " and the booking, update, other other action is not complete until after you have successfully invoked the appropriate tool."
+                    " If the user changes their mind or needs help for other tasks, call the CompleteOrEscalate function to let the primary host assistant take control."
+                    " Do not mention who you are - just act as the proxy for the assistant.",
+                    tool_call_id=tool_call_id,
+                )
+            ],
+        }
+
+    return entry_node
+
+
 ## TO DO: Arrange this script
-members = ["duration", "traffic", "transit"]
+members = ["entry_duration", "entry_traffic", "entry_transit"]
 options = members + ["FINISH"]
 
 class Router(TypedDict):

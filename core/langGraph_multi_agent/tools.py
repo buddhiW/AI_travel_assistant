@@ -34,3 +34,34 @@ def find_transit_schedule(route_number, mode_of_travel):
     print("Looking up transit schedules.")
     output = f'The next {route_number} {mode_of_travel} leaves at 10.30AM. Next one is scheduled at 11.30 AM.'
     return output
+
+## Transfer tools
+def transfer_to_travel_duration_agent():
+    """
+    Transfer to a specialized assistant for computing travel duration
+    """
+    return travel_duration_agent
+
+def transfer_to_traffic_updates_agent():
+    """
+    Transfer to a specialized assistant for providing traffic condition updates for given routes
+    """
+    return traffic_updates_agent
+
+def transfer_to_transit_schedule_agent():
+    """
+    Transfer to a specialized assistant for computing transit schedule
+    """
+    return transit_schedule_agent
+
+def transfer_to_other_queries_agent():
+    """
+    Transfer to a specialized assistant for all other related queries
+    """
+    return other_queries_agent
+
+def transfer_back_to_triage_agent():
+    """
+    Transfer to a specialized assistant back to triage agent
+    """
+    return triage_Agent
