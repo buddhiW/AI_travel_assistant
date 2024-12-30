@@ -129,9 +129,8 @@ def create_entry_node(assistant_name: str, new_dialog_state: str) -> Callable:
             "messages": [
                 ToolMessage(
                     content=f"The assistant is now the {assistant_name}. Reflect on the above conversation between the host assistant and the user."
-                    f" The user's intent is unsatisfied. Use the provided tools to assist the user. Remember, you are {assistant_name},"
-                    " and the booking, update, other other action is not complete until after you have successfully invoked the appropriate tool."
-                    " If the user changes their mind or needs help for other tasks, call the CompleteOrEscalate function to let the primary host assistant take control."
+                    f" The user's intent is unsatisfied. Use the provided tools to assist the user. "
+                    " If the user changes their mind or needs help for other tasks, call the CompleteOrEscalate function to let the triage assistant take control."
                     " Do not mention who you are - just act as the proxy for the assistant.",
                     tool_call_id=tool_call_id,
                 )
@@ -150,28 +149,33 @@ class Router(TypedDict):
     next: Literal[*members]
 
 ## Supervising agent that calls the tools as it sees fit.
-supervisor_agent = Agent(
+triage_agent = Agent(
     name = "triage agent",
-    instructions = "You are a helpful agent that is tasked with managing a conversation between the"
-                    f" following workers: {members}. "
-                    "Gather information to direct the user to the correct worker out of travel duration, "
-                    "traffic conditions, transit route and transit schedule. "
-                    "For any other travel questions, make up an informative answer. Answer in at most two sentences. "
-                    "Allow questions that are tangential, as long as they fulfill the goal of providing information related to travel."
+    instructions = "You are a helpful assistant that helps users plan trips and travels by providing useful information. "
+                    "If a customer requests information on travel duration, traffic conditions, transit route or transit schedule, "
+                    "delegate the task to the appropriate specialized assistant by invoking the corresponding tool. "
+                    "The user is not aware of the different specialized assistants, so do not mention them; just quietly delegate through function calls. "
+                    "For any other travel related questions, make up an informative answer. Answer in at most two sentences. "
+                    "Allow questions that are tangential, as long as they fulfill the goal of providing information related to travelling."
                     "If the query is not relevant, politely ask the user to ask relevant questions. ",
+    tools = [transfer_to_travel_duration_agent,
+             transfer_to_traffic_updates_agent,
+             transfer_to_transit_details_agent,],
 )
     
 travel_duration_agent = Agent(
     name = "travel duration agent",
     instructions= "Your are an agent that computes travel duration using origin, destination and travel mode. "
-                    "If the question is not relevant, pass back to supervisor. ",
+                    "If the user needs help, and none of your tools are appropriate for it, then "
+                    '"transfer_back_to_triage_agent". Do not make up answers or invalid tools. ',
     tools= [compute_travel_duration,],
 )
 
 traffic_updates_agent = Agent(
     name = "traffic condition agent",
     instructions = "You are an agent that provides real-time traffic updates for a route. "
-                    "If the question is not relevant, pass back to supervisor. ",
+                    "If the user needs help, and none of your tools are appropriate for it, then "
+                    '"transfer_back_to_triage_agent". Do not make up answers or invalid tools. ',
     tools = [traffic_condition,],
 )
 
@@ -179,7 +183,8 @@ traffic_updates_agent = Agent(
 #     name = "transit route agent",
 #     instructions = "You are an agent that provides the transit route (bus, train, tram) given origin, destination. "
 #                     "If the mode of travel is not transit, that is bus, train, tram, ask the user to input a valid mode of travel. "
-#                     "If the question is not relevant, pass back to supervisor. ",
+#                     "If the user needs help, and none of your tools are appropriate for it, then "
+#                        '"transfer_back_to_triage_agent". Do not make up answers or invalid tools. ',
 #     tools = [find_route,],
 # )
 
@@ -187,7 +192,8 @@ transit_details_agent = Agent(
     name = "transit details agent",
     instructions = "You are an agent that provides information related to transit (bus, train, tram) routes and schedules, given origin, destination. "
                     "If the mode of travel is not transit, that is bus, train, tram, ask the user to input a valid mode of travel. "
-                    "If the question is not relevant, pass back to supervisor. ",
+                    "If the user needs help, and none of your tools are appropriate for it, then "
+                    '"transfer_back_to_triage_agent". Do not make up answers or invalid tools. ',
     tools = [find_route, find_transit_schedule,],
 )
 
