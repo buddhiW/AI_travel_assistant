@@ -90,9 +90,9 @@ python main.py
 ![Single-agent system architecture](images/single_agent.png "LangGraph based single-agent architecture")
 
 ## LangGraph multi-agent
-- This extends the [Multi-agent] (https://github.com/buddhiW/AI_travel_assistant/tree/main?tab=readme-ov-file#multi-agent) framework by integrating LangGraph for better task ochestration and memory management. 
+- This extends the [Multi-agent](https://github.com/buddhiW/AI_travel_assistant/tree/main?tab=readme-ov-file#multi-agent) framework by integrating LangGraph for better task ochestration and memory management. 
 - This method is suitable for multi-step tasks where the dependency between tasks can be modeled as a graph. 
-- The implementation demands a higher level of expertise compared to the [Multi-agent] (https://github.com/buddhiW/AI_travel_assistant/tree/main?tab=readme-ov-file#multi-agent) approach since it relies on more advanced concepts in LangGraph.
+- The implementation demands a higher level of expertise compared to the [Multi-agent](https://github.com/buddhiW/AI_travel_assistant/tree/main?tab=readme-ov-file#multi-agent) approach since it relies on more advanced concepts in LangGraph.
 - Although the chosen task may to too simple to fully leverage the benefits of LangGraph, it demonstates how a multi-agent framework can effectively manage isolated workflows for different tasks, thereby reducing the burden on the `triage_agent`.
 
 ![Multi-agent system architecture](images/multi_agent.png "LangGraph based multi-agent architecture")
