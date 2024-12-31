@@ -68,11 +68,11 @@ def route_tools(state:State):
         if leave:
             return "leave_skill"
         if all(tc["name"] in [t.name for t in travel_duration_agent.tools] for tc in tool_calls):
-            return "duration_tools"
+            return "travel_duration_tools"
         if all(tc["name"] in [t.name for t in traffic_updates_agent.tools] for tc in tool_calls):
-            return "traffic_tools"
+            return "traffic_updates_tools"
         if all(tc["name"] in [t.name for t in transit_details_agent.tools] for tc in tool_calls):
-            return "transit_tools"
+            return "transit_details_tools"
     
     raise ValueError("Invalid route")
 
