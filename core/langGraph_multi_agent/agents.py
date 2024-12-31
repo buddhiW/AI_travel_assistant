@@ -71,7 +71,6 @@ class Supervisor:
 
         return {"next": next_}
 
-
 ## Executing the runnable assistant agent
 class Assistant:
 
@@ -94,10 +93,6 @@ class Assistant:
             else:
                 break
 
-        # return {"messages": [
-        #     HumanMessage(content=result["messages"][-1].content)
-        # ]
-        # }
         return {"messages": result}
 
 
@@ -139,15 +134,6 @@ def create_entry_node(assistant_name: str, new_dialog_state: str) -> Callable:
 
     return entry_node
 
-
-## TO DO: Arrange this script
-members = ["entry_duration", "entry_traffic", "entry_transit"]
-options = members + ["FINISH"]
-
-class Router(TypedDict):
-    """Worker to route to next. No need for an explicit FINISH output because conditional edges can to END."""
-    next: Literal[*members]
-
 ## Supervising agent that calls the tools as it sees fit.
 triage_agent = Agent(
     name = "triage agent",
@@ -188,6 +174,7 @@ traffic_updates_agent = Agent(
 #     tools = [find_route,],
 # )
 
+## Combined two agents into one.
 transit_details_agent = Agent(
     name = "transit details agent",
     instructions = "You are an agent that provides information related to transit (bus, train, tram) routes and schedules, given origin, destination. "
