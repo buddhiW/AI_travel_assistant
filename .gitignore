@@ -10,7 +10,7 @@ assistant_utils_chains.py
 evaluation.py
 
 # Figures
-*.png
+my_graph_*.png
 
 # Compiled Python files
 *.pyc

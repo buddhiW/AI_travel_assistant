@@ -4,13 +4,13 @@ This project serves as an investigation of multiple methodologies for implementi
 
 Getting started with large language modelling and generative AI can be overwhelming due to the wide variety of tools, techniques and methods available. A practical approach to learning is to focus on a straightforward use case and build models from scratch. 
 
-This project is designed as a starting point, providing a learning experience for beginners in the field. Here, the same application has been implemented using three approaches.
+This project is designed as a starting point, providing a learning experience for beginners in the field. Here, the same application has been implemented using four approaches.
 
 ## Implementation approaches
 1. **Basic prompt-driven** (`core/basic`): A non-agentic framework that uses [chat completions](https://platform.openai.com/docs/guides/text-generation) API from OpenAI and tool calling.
 2. **Multi-agent** (`core/agents_method`): An multi-agent framework based on chat completions API and tool calling.
 3. **LangGraph single-agent** (`core/langGraph_single_agent`): A single-agent graph framework with tool calling implemented using [LangChain](https://python.langchain.com/docs/introduction/) and [LangGraph](https://langchain-ai.github.io/langgraph/).
-4. **LangGraph multi-agent**: INCOMPLETE. A supervisor-worker graph framework.
+4. **LangGraph multi-agent** (`core/langGraph_multi_agent`): A multi-agent graph framework with specialized paths for handling each task using [LangChain](https://python.langchain.com/docs/introduction/) and [LangGraph](https://langchain-ai.github.io/langgraph/).
 
 ## Queries handled by the assistant
 1. Travel duration given the origin, destination and mode of travel.
@@ -87,6 +87,15 @@ python main.py
 - Many routines previously implemented manually are now streamlined using LangChain’s built-in interfaces, resulting in a more maintainable implementation. This is evidenced by the updated `run_assistant` function.
 - LangGraph’s `MemorySaver` checkpointing mechanism provides efficient memory management. This leads to better recall capabilities, improved token efficiency and overall smoother operation.
 
+![Single-agent system architecture](images/single_agent.png "LangGraph based single-agent architecture")
+
+## LangGraph multi-agent
+- This extends the [Multi-agent] (https://github.com/buddhiW/AI_travel_assistant/tree/main?tab=readme-ov-file#multi-agent) framework by integrating LangGraph for better task ochestration and memory management. 
+- This method is suitable for multi-step tasks where the dependency between tasks can be modeled as a graph. 
+- The implementation demands a higher level of expertise compared to the [Multi-agent] (https://github.com/buddhiW/AI_travel_assistant/tree/main?tab=readme-ov-file#multi-agent) approach since it relies on more advanced concepts in LangGraph.
+- Although the chosen task may to too simple to fully leverage the benefits of LangGraph, it demonstates how a multi-agent framework can effectively manage isolated workflows for different tasks, thereby reducing the burden on the `triage_agent`.
+
+![Multi-agent system architecture](images/multi_agent.png "LangGraph based multi-agent architecture")
 
 ## Acknowledgements
 
