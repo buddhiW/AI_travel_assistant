@@ -8,7 +8,7 @@ This project is designed as a starting point, providing a learning experience fo
 
 ## Implementation approaches
 1. **Basic prompt-driven** (`core/basic`): A non-agentic framework that uses [chat completions](https://platform.openai.com/docs/guides/text-generation) API from OpenAI and tool calling.
-2. **Multi-agent** (`core/agents_method`): An multi-agent framework based on chat completions API and tool calling.
+2. **Multi-agent** (`core/agents_method`): A multi-agent framework based on chat completions API and tool calling.
 3. **LangGraph single-agent** (`core/langGraph_single_agent`): A single-agent graph framework with tool calling implemented using [LangChain](https://python.langchain.com/docs/introduction/) and [LangGraph](https://langchain-ai.github.io/langgraph/).
 4. **LangGraph multi-agent** (`core/langGraph_multi_agent`): A multi-agent graph framework with specialized paths for handling each task using [LangChain](https://python.langchain.com/docs/introduction/) and [LangGraph](https://langchain-ai.github.io/langgraph/).
 
